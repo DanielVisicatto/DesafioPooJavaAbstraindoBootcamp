@@ -1,5 +1,6 @@
+import br.com.dio.desafio.dominio.Conteudo;
 import br.com.dio.desafio.dominio.Curso;
-import br.com.dio.desafio.dominio.Mentoia;
+import br.com.dio.desafio.dominio.Mentoria;
 
 import java.time.LocalDate;
 
@@ -17,11 +18,16 @@ public class Main {
         curso1.setDescricao("... descricao do curso JavaScript");
         curso1.setCargaHoraria(6);
 
-        Mentoia mentoria1 = new Mentoia();
+        Mentoria mentoria1 = new Mentoria();
         mentoria1.setTitulo("Mentoria de Java");
         mentoria1.setDescricao("... descricao de Java");
         mentoria1.setData(LocalDate.now());
 
+    //Não consigo criar um conteúdo ... Conteudo conteudo = new Conteudo(); porque nossa classe é abstrata.
+    //Eu posso criar um Curos à partir da classe conteudo, (polimorfismo);
+
+        Conteudo conteudo1 = new Curso();
+        Conteudo conteudo2 = new Mentoria();
 
         System.out.println(curso1);
         System.out.println(curso2);
