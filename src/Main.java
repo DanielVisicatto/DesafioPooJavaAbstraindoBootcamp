@@ -1,6 +1,4 @@
-import br.com.dio.desafio.dominio.Conteudo;
-import br.com.dio.desafio.dominio.Curso;
-import br.com.dio.desafio.dominio.Mentoria;
+import br.com.dio.desafio.dominio.*;
 
 import java.time.LocalDate;
 
@@ -14,9 +12,9 @@ public class Main {
 
         Curso curso2 = new Curso();
         //Atribuindo valores através do método Set();
-        curso1.setTitulo("Curso JavaScript");
-        curso1.setDescricao("... descricao do curso JavaScript");
-        curso1.setCargaHoraria(6);
+        curso2.setTitulo("Curso JavaScript");
+        curso2.setDescricao("... descricao do curso JavaScript");
+        curso2.setCargaHoraria(6);
 
         Mentoria mentoria1 = new Mentoria();
         mentoria1.setTitulo("Mentoria de Java");
@@ -29,8 +27,40 @@ public class Main {
         Conteudo conteudo1 = new Curso();
         Conteudo conteudo2 = new Mentoria();
 
-        System.out.println(curso1);
-        System.out.println(curso2);
-        System.out.println(mentoria1);
+        // Vamos Criar um Bootcamp e colocar pelo menos 2 Devs nele.
+        Bootcamp bootcamp = new Bootcamp();
+        bootcamp.setNome("Bootcamp Java Developer");
+        bootcamp.setDescricao("... descricao do bootcamp Java Developer");
+        bootcamp.getConteudos().add(curso1);
+        bootcamp.getConteudos().add(curso2);
+        bootcamp.getConteudos().add(mentoria1);
+
+        //Agora a parte dos Devs
+        Dev devDaniel = new Dev();
+        devDaniel.setNome("Daniel Visicatto");
+        Dev devWallace = new Dev();
+        devWallace.setNome("Wallace V. Sinatra");
+
+        //inscrevendo os devs no bootcamp.
+        devDaniel.inscreverBootcamp(bootcamp);
+        devWallace.inscreverBootcamp(bootcamp);
+
+        //vamos imprimir os conteudos em que cada Dev está inscrito/progredido/XP.
+        System.out.println("Conteudos inscritos Damniel" + devDaniel.getConteudosInscritos());
+        System.out.println("----------------------------------------------------------------\n");
+        System.out.println("Conteudos inscritos Wallace" + devWallace.getConteudosInscritos());
+
+        System.out.println("===============================================================\n");
+        devDaniel.progredir();
+        devWallace.progredir();
+        devWallace.progredir();
+
+        System.out.println("Conteudos inscritos Daniel: " + devDaniel.getConteudosInscritos());
+        System.out.println("Conteudos concluidos Daniel: " + devDaniel.getConteudosConcluidos());
+        System.out.println("XP adquiridos por Daniel: " + devDaniel.calcularTotalXp());
+        System.out.println("----------------------------------------------------------------\n");
+        System.out.println("Conteudos inscritos Wallace: " + devWallace.getConteudosInscritos());
+        System.out.println("Conteudos concluidos Wallace: " + devWallace.getConteudosConcluidos());
+        System.out.println("XP adquiridos por Wallace: " + devWallace.calcularTotalXp());
     }
 }

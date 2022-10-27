@@ -2,6 +2,7 @@ package br.com.dio.desafio.dominio;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Dev {
@@ -47,9 +48,28 @@ public class Dev {
         return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
     }
 
-    public void inscreverBootcamp(Bootcamp bootcamp) {}
+    public void inscreverBootcamp(Bootcamp bootcamp) {
+        //quando um Dev se inscrece no bootcamp, os conteudos vem pra esse Set<Conteudo> conteudosInscritos.
+        this.conteudosInscritos.addAll(bootcamp.getConteudos());
+        //tenho que adicionar esse meu Dev no Boootcamp.
+        bootcamp.getDevsInscritos().add(this);
+    }
 
-    public void progredir(){}
+    public void progredir(){
+        //pegando o conteudo...
+        Optional<Conteudo> conteudo = this.conteudosInscritos.stream().findFirst();// colocamos numa variável.
+        //pegando de Iscritos e colocando nos concluidos.
+        if(conteudo.isPresent()){// se tiver conteudo.
+            this.conteudosConcluidos.add(conteudo.get());
+            //removendo o concluido de inscrito.
+            this.conteudosInscritos.remove(conteudo.get());
+        }else{
+            System.err.println("Você ainda não se matriculou em nenhum Bootcamp ");
+        }
+    }
 
-    public void calcularTotalXp(){}
+    public double calcularTotalXp(){// tem q ser double para podemos usar o TotalXp
+        //vamos pegar nosso Set<Conteudo> conteudoConcluidos e somando com o método.
+        return this.conteudosConcluidos.stream().mapToDouble(Conteudo::calcularXp).sum();
+    }
 }
